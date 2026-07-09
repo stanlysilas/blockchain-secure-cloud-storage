@@ -1,0 +1,470 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/geist';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Geist Variable', sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
+  a {
+    @apply cursor-pointer;
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  .app-layout {
+    @apply min-h-screen bg-black text-white;
+  }
+
+  .page-container {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+  .hero-section {
+    @apply flex flex-col items-center justify-center text-center py-36 relative overflow-hidden;
+  }
+
+  .hero-badge {
+    @apply bg-blue-500/10 border border-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-medium mb-8 backdrop-blur-xl;
+  }
+
+  .hero-title {
+    @apply text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none max-w-5xl;
+  }
+
+  .hero-gradient-text {
+    @apply bg-linear-to-r from-blue-400 via-cyan-300 to-indigo-400 bg-clip-text text-transparent;
+  }
+
+  .hero-description {
+    @apply text-gray-400 text-lg md:text-xl leading-relaxed max-w-3xl mt-8;
+  }
+
+  .hero-button-group {
+    @apply flex flex-wrap items-center justify-center gap-4 mt-10;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl;
+  }
+
+  .feature-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mt-24;
+  }
+
+  .feature-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 hover:border-blue-500/30 transition-all duration-300;
+  }
+
+  .feature-icon {
+    @apply w-14 h-14 text-blue-400 mb-6;
+  }
+
+  .feature-title {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  .feature-description {
+    @apply text-gray-400 leading-relaxed;
+  }
+
+  .section-spacing {
+    @apply py-24;
+  }
+
+  .dashboard-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6;
+  }
+
+  .storage-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6;
+  }
+
+  .input-field {
+    @apply bg-gray-900 border border-gray-700 focus:border-blue-500 outline-none rounded-xl px-4 py-3 w-full transition-all duration-300;
+  }
+
+  .wallet-button {
+    @apply bg-blue-600 hover:bg-blue-700 rounded-xl px-4 py-2 font-medium transition-all duration-300;
+  }
+
+  .dashboard-header {
+    @apply flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12;
+  }
+
+  .dashboard-title {
+    @apply text-5xl font-black tracking-tight;
+  }
+
+  .dashboard-subtitle {
+    @apply text-gray-400 mt-2;
+  }
+
+  .dashboard-layout {
+    @apply min-h-[80vh] flex items-start justify-center py-10;
+  }
+
+  .dashboard-wrapper {
+    @apply w-full max-w-7xl;
+  }
+
+  .dashboard-shell {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10;
+  }
+
+  .dashboard-topbar {
+    @apply flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6 mb-12;
+  }
+
+  .dashboard-stat-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4 mt-8;
+  }
+
+  .dashboard-stat-card {
+    @apply bg-black/30 border border-white/10 rounded-2xl p-5;
+  }
+
+  .dashboard-stat-label {
+    @apply text-gray-400 text-sm mb-2;
+  }
+
+  .dashboard-stat-value {
+    @apply text-3xl font-black;
+  }
+
+  .file-grid {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+  }
+
+  .file-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 hover:border-blue-500/30 transition-all duration-300;
+  }
+
+  .file-card-header {
+    @apply flex items-start justify-between gap-4 mb-6;
+  }
+
+  .file-icon-wrapper {
+    @apply bg-blue-500/10 border border-blue-500/20 p-3 rounded-2xl;
+  }
+
+  .file-meta {
+    @apply space-y-3 text-sm;
+  }
+
+  .file-meta-label {
+    @apply text-gray-500 font-medium;
+  }
+
+  .file-meta-value {
+    @apply text-white break-all;
+  }
+
+  .file-action-group {
+    @apply flex flex-wrap gap-3 mt-6;
+  }
+
+  .success-button {
+    @apply bg-green-600 hover:bg-green-700 rounded-xl px-4 py-2 transition-all duration-300;
+  }
+
+  .share-button {
+    @apply bg-purple-600 hover:bg-purple-700 rounded-xl px-4 py-2 transition-all duration-300;
+  }
+
+  .empty-state {
+    @apply flex flex-col items-center justify-center text-center py-32;
+  }
+
+  .empty-title {
+    @apply text-3xl font-bold mt-6 mb-3;
+  }
+
+  .empty-description {
+    @apply text-gray-400 max-w-lg;
+  }
+
+  .upload-layout {
+    @apply min-h-[80vh] flex items-center justify-center;
+  }
+
+  .upload-wrapper {
+    @apply max-w-3xl w-full;
+  }
+
+  .upload-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10;
+  }
+
+  .upload-header {
+    @apply text-center mb-10;
+  }
+
+  .upload-title {
+    @apply text-5xl md:text-6xl font-black tracking-tight mb-4;
+  }
+
+  .upload-description {
+    @apply text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto;
+  }
+
+  .upload-dropzone {
+    @apply border-2 border-dashed border-gray-700 hover:border-blue-500/50 transition-all duration-300 rounded-3xl px-8 py-14 text-center cursor-pointer bg-black/20 flex flex-col items-center justify-center;
+  }
+
+  .upload-icon-wrapper {
+    @apply bg-blue-500/10 border border-blue-500/20 rounded-full p-5 w-fit mx-auto mb-6;
+  }
+
+  .upload-file-name {
+    @apply text-sm text-blue-300 mt-4 break-all;
+  }
+
+  .upload-section {
+    @apply mt-8 space-y-4;
+  }
+
+  .security-note {
+    @apply mt-6 text-sm text-gray-500 text-center leading-relaxed;
+  }
+
+  .shared-layout {
+    @apply min-h-[80vh] flex items-center justify-center;
+  }
+
+  .shared-wrapper {
+    @apply max-w-3xl w-full;
+  }
+
+  .shared-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10;
+  }
+
+  .shared-header {
+    @apply text-center mb-10;
+  }
+
+  .shared-title {
+    @apply text-5xl md:text-6xl font-black tracking-tight mb-4;
+  }
+
+  .shared-description {
+    @apply text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto;
+  }
+
+  .shared-result-card {
+    @apply mt-8 bg-blue-500/5 border border-blue-500/10 rounded-3xl p-6;
+  }
+
+  .shared-meta {
+    @apply space-y-4;
+  }
+
+  .shared-label {
+    @apply text-gray-500 text-sm font-medium;
+  }
+
+  .shared-value {
+    @apply text-white break-all;
+  }
+
+  .shared-download-button {
+    @apply bg-green-600 hover:bg-green-700 rounded-2xl px-6 py-6 text-base font-semibold transition-all duration-300 w-full mt-6;
+  }
+
+  .navbar-wrapper {
+    @apply sticky top-0 z-50 px-6 pt-6;
+  }
+
+  .navbar-shell {
+    @apply max-w-7xl mx-auto bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl px-6 py-4;
+  }
+
+  .navbar-content {
+    @apply flex items-center justify-between gap-6;
+  }
+
+  .navbar-brand {
+    @apply flex items-center gap-3;
+  }
+
+  .navbar-logo {
+    @apply w-11 h-11 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center;
+  }
+
+  .navbar-title {
+    @apply text-2xl font-black tracking-tight;
+  }
+
+  .navbar-subtitle {
+    @apply text-xs text-gray-400;
+  }
+
+  .navbar-links {
+    @apply hidden md:flex items-center gap-2;
+  }
+
+  .navbar-link {
+    @apply text-gray-400 hover:text-white transition-all duration-300 px-4 py-2 rounded-xl hover:bg-white/5;
+  }
+
+  .navbar-link-active {
+    @apply text-blue-300 bg-blue-500/10 border border-blue-500/20;
+  }
+
+  .navbar-right {
+    @apply flex items-center gap-4;
+  }
+
+  .wallet-container {
+    @apply flex items-center gap-3;
+  }
+
+  .wallet-rename-button {
+    @apply bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl px-3 py-2 text-sm transition-all duration-300;
+  }
+
+  .wallet-connect-button {
+    @apply bg-blue-600 hover:bg-blue-700 rounded-2xl px-4 py-3 transition-all duration-300 flex items-center gap-3;
+  }
+
+  .wallet-status-dot {
+    @apply w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse;
+  }
+
+  .wallet-info {
+    @apply flex flex-col items-start leading-none;
+  }
+
+  .wallet-label {
+    @apply text-[11px] uppercase tracking-wide text-blue-200/70;
+  }
+
+  .wallet-address {
+    @apply text-sm font-medium;
+  }
+}
