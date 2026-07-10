@@ -8,25 +8,24 @@ import FileCard
 from '@/components/FileCard'
 
 function Dashboard () {
-  const [shareAddress, setShareAddress] = useState('')
-
   const [files, setFiles] = useState([])
 
   const [loading, setLoading] = useState(true)
 
-  const shareFile = async fileId => {
+  const shareFile = async (fileId, address) => {
     try {
       const contract = await getContract()
 
-      const transaction = await contract.shareAccess(fileId, shareAddress)
+      const transaction = await contract.shareAccess(fileId, address)
 
       await transaction.wait()
 
       alert('Access shared successfully')
 
-      setShareAddress('')
     } catch (error) {
       console.error(error)
+
+      alert(error.reason || error.shortMessage || 'Failed to share access.')
     }
   }
 
@@ -104,8 +103,6 @@ function Dashboard () {
                   <FileCard
                     key={file.id.toString()}
                     file={file}
-                    shareAddress={shareAddress}
-                    setShareAddress={setShareAddress}
                     shareFile={shareFile}
                   />
                 ))}
@@ -134,8 +131,6 @@ function Dashboard () {
           <FileCard
             key={file.id.toString()}
             file={file}
-            shareAddress={shareAddress}
-            setShareAddress={setShareAddress}
             shareFile={shareFile}
           />
         ))}

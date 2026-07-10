@@ -11,10 +11,40 @@ export function WalletProvider ({ children }) {
   const [walletName, setWalletName] = useState('')
   const [network, setNetwork] = useState(null)
 
+  const renameWallet = () => {
+    if (!account) return
+
+    const name = prompt('Enter wallet nickname')
+
+    if (!name) return
+
+    localStorage.setItem(account.toLowerCase(), name)
+
+    setWalletName(name)
+  }
+
+  const redirectToMetaMask = () => {
+    if (!window.ethereum) {
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+
+      if (isMobile) {
+        const open = window.confirm('Open this application inside MetaMask?')
+
+        if (open) {
+          redirectToMetaMask()
+        }
+      } else {
+        redirectToMetaMask()
+      }
+
+      return
+    }
+  }
+
   const connectWallet = async () => {
     try {
       if (!window.ethereum) {
-        alert('MetaMask is not installed')
+        redirectToMetaMask()
         return
       }
 
@@ -34,7 +64,7 @@ export function WalletProvider ({ children }) {
       setIsConnected(true)
       setNetwork(currentNetwork)
 
-      const savedName = localStorage.getItem(address)
+      const savedName = localStorage.getItem(address.toLowerCase())
 
       setWalletName(savedName || '')
     } catch (error) {
@@ -43,15 +73,16 @@ export function WalletProvider ({ children }) {
   }
 
   const switchWallet = async () => {
+    if (!window.ethereum) return
+
+    alert(
+      'Open MetaMask and switch to another account. The application will automatically reconnect.'
+    )
+
     try {
-      if (!window.ethereum) return
-
       await window.ethereum.request({
-        method: 'wallet_requestPermissions',
-        params: [{ eth_accounts: {} }]
+        method: 'eth_requestAccounts'
       })
-
-      await connectWallet()
     } catch (error) {
       console.error(error)
     }
@@ -72,7 +103,14 @@ export function WalletProvider ({ children }) {
 
   const checkConnection = async () => {
     try {
-      if (!window.ethereum) return
+      if (!window.ethereum) {
+        setSigner(null)
+        setProvider(null)
+        setAccount('')
+        setWalletName('')
+        setIsConnected(false)
+        return
+      }
 
       const web3Provider = new ethers.BrowserProvider(window.ethereum)
 
@@ -90,7 +128,7 @@ export function WalletProvider ({ children }) {
         setAccount(accounts[0])
         setIsConnected(true)
 
-        const savedName = localStorage.getItem(accounts[0])
+        const savedName = localStorage.getItem(accounts[0].toLowerCase())
 
         setWalletName(savedName || '')
       } else {
@@ -142,7 +180,8 @@ export function WalletProvider ({ children }) {
         setWalletName,
         connectWallet,
         switchWallet,
-        switchToSepolia
+        switchToSepolia,
+        renameWallet
       }}
     >
       {children}

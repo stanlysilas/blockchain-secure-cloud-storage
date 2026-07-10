@@ -6,8 +6,10 @@ import { useState } from 'react'
 
 import { downloadAndDecryptFile } from '@/services/downloadService'
 
-function FileCard ({ file, shareAddress, setShareAddress, shareFile }) {
+function FileCard ({ file, shareFile }) {
+  const [shareAddress, setShareAddress] = useState("")
   const [downloading, setDownloading] = useState(false)
+  const [sharing, setSharing] = useState(false)
 
   return (
     <div className='file-card'>
@@ -77,9 +79,23 @@ function FileCard ({ file, shareAddress, setShareAddress, shareFile }) {
           className='input-field'
         />
 
-        <Button variant='glass' size='full' onClick={() => shareFile(file.id)}>
+        <Button
+          variant='glass'
+          size='full'
+          onClick={async () => {
+            setSharing(true)
+
+            try {
+              await shareFile(file.id, shareAddress)
+              
+              setShareAddress('')
+            } finally {
+              setSharing(false)
+            }
+          }}
+        >
           <Share2 className='w-4 h-4 mr-2' />
-          Share Access
+          {sharing ? 'Confirming Transaction...' : 'Share Access'}
         </Button>
       </div>
     </div>

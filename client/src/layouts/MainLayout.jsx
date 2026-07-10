@@ -1,3 +1,4 @@
+import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
 
 function MainLayout({ children }) {
@@ -8,6 +9,8 @@ function MainLayout({ children }) {
       <main className="p-6">
         {children}
       </main>
+
+      <Footer />
     </div>
   )
 }

@@ -3,27 +3,17 @@ import { Wallet, Pencil } from 'lucide-react'
 import { useWallet } from '../context/WalletContext'
 
 function WalletButton () {
-  const { account, isConnected, connectWallet, walletName, setWalletName } =
+  const { account, isConnected, connectWallet, walletName, renameWallet } =
     useWallet()
 
   const shortenAddress = address => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`
   }
 
-  const saveName = () => {
-    const name = prompt('Enter wallet nickname')
-
-    if (!name) return
-
-    localStorage.setItem(account, name)
-
-    setWalletName(name)
-  }
-
   return (
     <div className='wallet-container'>
       {isConnected && (
-        <button onClick={saveName} className='wallet-rename-button'>
+        <button onClick={renameWallet} className='wallet-rename-button hidden lg:flex'>
           <Pencil className='w-4 h-4' />
         </button>
       )}

@@ -117,6 +117,20 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@keyframes drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawer {
+  animation: drawer-in 0.25s ease;
+}
+
 @layer base {
   button {
     @apply cursor-pointer;
@@ -438,6 +452,18 @@
 
   .navbar-right {
     @apply flex items-center gap-4;
+  }
+
+  .drawer-link {
+    @apply flex items-center gap-3 rounded-xl px-4 py-3 text-gray-400 transition-all duration-200;
+  }
+
+  .drawer-link:hover {
+    @apply bg-white/5 text-white;
+  }
+
+  .drawer-link-active {
+    @apply bg-blue-500/15 text-blue-400 border border-blue-500/20;
   }
 
   .wallet-container {
