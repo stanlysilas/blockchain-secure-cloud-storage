@@ -1,4 +1,4 @@
-import { ShieldCheck, Globe, Heart } from 'lucide-react'
+import { ShieldCheck, Globe, Heart, Tag } from 'lucide-react'
 
 import GitHubIcon from '../assets/GitHubIcon'
 
@@ -44,6 +44,11 @@ function Footer () {
               <div className='flex items-center gap-2'>
                 <Globe className='w-4 h-4 text-blue-400' />
                 <span>Ethereum Sepolia Test Network</span>
+              </div>
+
+              <div className='flex items-center gap-2'>
+                <Tag className='w-4 h-4 text-blue-400' />
+                <span>Version {__APP_VERSION__}</span>
               </div>
 
               <div className='flex items-center gap-2'>

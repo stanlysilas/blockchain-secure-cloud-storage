@@ -15,6 +15,8 @@ function SharedFiles () {
 
   const [loading, setLoading] = useState(true)
 
+  const [downloading, setDownloading] = useState(false)
+
   const fetchData = async () => {
     try {
       const contract = await getContract()
@@ -140,14 +142,25 @@ function SharedFiles () {
 
                   <div className='file-action-group'>
                     <Button
-                      variant='blue'
+                      variant={downloading ? 'glass' : 'blue'}
                       size='full'
-                      onClick={() =>
-                        downloadAndDecryptFile(file.ipfsHash, file.fileName)
-                      }
+                      disabled={downloading}
+                      onClick={async () => {
+                        setDownloading(true)
+
+                        try {
+                          await downloadAndDecryptFile(
+                            file.ipfsHash,
+                            file.fileName
+                          )
+                        } finally {
+                          setDownloading(false)
+                        }
+                      }}
                     >
                       <Download className='w-4 h-4 mr-2' />
-                      Download
+
+                      {downloading ? 'Decrypting...' : 'Download'}
                     </Button>
                   </div>
                 </div>
@@ -163,61 +176,74 @@ function SharedFiles () {
             <h2 className='text-3xl font-bold'>Shared By Me</h2>
           </div>
 
-          <div className='file-grid'>
-            {mySharedFiles.map(file => (
-              <div key={file.id.toString()} className='file-card'>
-                <div className='file-card-header'>
-                  <div className='file-icon-wrapper'>
-                    <FileText className='w-7 h-7 text-blue-400' />
+          {mySharedFiles.length === 0 ? (
+            <div className='dashboard-shell text-center py-16'>
+              <Inbox className='w-14 h-14 mx-auto text-blue-400 mb-6' />
+
+              <h3 className='text-2xl font-bold mb-3'>No Shared Files</h3>
+
+              <p className='text-gray-400'>
+                Share access to your uploaded files with other wallets, and
+                they'll be listed here.
+              </p>
+            </div>
+          ) : (
+            <div className='file-grid'>
+              {mySharedFiles.map(file => (
+                <div key={file.id.toString()} className='file-card'>
+                  <div className='file-card-header'>
+                    <div className='file-icon-wrapper'>
+                      <FileText className='w-7 h-7 text-blue-400' />
+                    </div>
+
+                    <div className='bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs px-3 py-1 rounded-full'>
+                      {file.users.length} Shared
+                    </div>
                   </div>
 
-                  <div className='bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs px-3 py-1 rounded-full'>
-                    {file.users.length} Shared
+                  <div className='file-meta'>
+                    <div>
+                      <p className='file-meta-label'>File Name</p>
+
+                      <p className='file-meta-value'>{file.fileName}</p>
+                    </div>
+
+                    <div>
+                      <p className='file-meta-label'>Shared With</p>
+
+                      {file.users.length === 0 ? (
+                        <p className='text-gray-500'>Not shared yet</p>
+                      ) : (
+                        <div className='space-y-2 mt-2'>
+                          {file.users.map(user => (
+                            <div
+                              key={user}
+                              className='bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm break-all'
+                            >
+                              {user}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className='file-action-group'>
+                    <Button
+                      variant='blue'
+                      size='full'
+                      onClick={() =>
+                        downloadAndDecryptFile(file.ipfsHash, file.fileName)
+                      }
+                    >
+                      <Download className='w-4 h-4 mr-2' />
+                      Download
+                    </Button>
                   </div>
                 </div>
-
-                <div className='file-meta'>
-                  <div>
-                    <p className='file-meta-label'>File Name</p>
-
-                    <p className='file-meta-value'>{file.fileName}</p>
-                  </div>
-
-                  <div>
-                    <p className='file-meta-label'>Shared With</p>
-
-                    {file.users.length === 0 ? (
-                      <p className='text-gray-500'>Not shared yet</p>
-                    ) : (
-                      <div className='space-y-2 mt-2'>
-                        {file.users.map(user => (
-                          <div
-                            key={user}
-                            className='bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm break-all'
-                          >
-                            {user}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className='file-action-group'>
-                  <Button
-                    variant='blue'
-                    size='full'
-                    onClick={() =>
-                      downloadAndDecryptFile(file.ipfsHash, file.fileName)
-                    }
-                  >
-                    <Download className='w-4 h-4 mr-2' />
-                    Download
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>

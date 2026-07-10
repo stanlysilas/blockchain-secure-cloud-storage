@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { downloadAndDecryptFile } from '@/services/downloadService'
 
 function FileCard ({ file, shareFile }) {
-  const [shareAddress, setShareAddress] = useState("")
+  const [shareAddress, setShareAddress] = useState('')
   const [downloading, setDownloading] = useState(false)
   const [sharing, setSharing] = useState(false)
 
@@ -51,7 +51,7 @@ function FileCard ({ file, shareFile }) {
 
       <div className='file-action-group'>
         <Button
-          variant='success'
+          variant={downloading ? 'glass' : 'blue'}
           size='full'
           disabled={downloading}
           onClick={async () => {
@@ -87,7 +87,7 @@ function FileCard ({ file, shareFile }) {
 
             try {
               await shareFile(file.id, shareAddress)
-              
+
               setShareAddress('')
             } finally {
               setSharing(false)

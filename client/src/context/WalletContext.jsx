@@ -28,7 +28,9 @@ export function WalletProvider ({ children }) {
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 
       if (isMobile) {
-        const open = window.confirm('Open this application inside MetaMask?')
+        const open = window.confirm(
+          'BlockDrive is currently only available on desktop.'
+        )
 
         if (open) {
           redirectToMetaMask()

@@ -1,4 +1,14 @@
-import { ShieldCheck, LockKeyhole, Database, ArrowRight } from 'lucide-react'
+import {
+  ShieldCheck,
+  LockKeyhole,
+  Database,
+  ArrowRight,
+  Wallet,
+  Monitor,
+  KeyRound,
+  HardDrive,
+  FileCode2
+} from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
@@ -22,7 +32,9 @@ function Home () {
   return (
     <div className='page-container'>
       <section className='hero-section'>
-        <div className='hero-badge'>Secure Decentralized Cloud Storage</div>
+        <div className='chip hero-badge'>
+          Secure Decentralized Cloud Storage
+        </div>
 
         <h1 className='hero-title'>
           Store Files With
@@ -30,10 +42,32 @@ function Home () {
         </h1>
 
         <p className='hero-description'>
-          A next-generation decentralized storage platform powered by Ethereum
-          smart contracts, AES encryption, IPFS distributed storage, and
+          Secure decentralized cloud storage powered by Ethereum smart
+          contracts, client-side AES encryption, IPFS distributed storage, and
           MetaMask authentication.
         </p>
+
+        <div className='flex flex-wrap justify-center gap-3 my-8'>
+          <span className='chip'>
+            <ShieldCheck className='w-4 h-4 mr-2' />
+            Ethereum
+          </span>
+
+          <span className='chip'>
+            <Database className='w-4 h-4 mr-2' />
+            IPFS
+          </span>
+
+          <span className='chip'>
+            <LockKeyhole className='w-4 h-4 mr-2' />
+            AES-256
+          </span>
+
+          <span className='chip'>
+            <Wallet className='w-4 h-4 mr-2' />
+            MetaMask
+          </span>
+        </div>
 
         <div className='hero-button-group'>
           <Button variant='blue' onClick={handlePrimaryAction}>
@@ -42,13 +76,33 @@ function Home () {
             <ArrowRight className='ml-2 w-5 h-5' />
           </Button>
 
-          <Button variant='glass' onClick={() => navigate('/upload')}>
-            Explore Platform
+          <Button
+            variant='glass'
+            onClick={() =>
+              document
+                .querySelector('#features')
+                ?.scrollIntoView({ behavior: 'smooth' })
+            }
+          >
+            Learn More
           </Button>
         </div>
       </section>
 
-      <section className='section-spacing'>
+      <section id='features' className='section-spacing'>
+        <div className='text-center mb-14'>
+          <div className='chip hero-badge'>Core Features</div>
+
+          <h2 className='section-title'>
+            Features of <span className='hero-gradient-text'>BlockDrive</span>
+          </h2>
+
+          <p className='section-description'>
+            Explore the core technologies that power BlockDrive, from Ethereum
+            smart contracts and AES encryption to decentralized IPFS storage and
+            secure permission management.
+          </p>
+        </div>
         <div className='feature-grid'>
           <div className='feature-card'>
             <ShieldCheck className='feature-icon' />
@@ -80,6 +134,69 @@ function Home () {
             <p className='feature-description'>
               Distributed decentralized storage powered by IPFS and persistent
               Pinata pinning infrastructure.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className='section-spacing'>
+        <div className='text-center mb-14'>
+          <div className='chip hero-badge'>System Architecture</div>
+
+          <h2 className='section-title'>
+            How <span className='hero-gradient-text'>BlockDrive</span> Works
+          </h2>
+
+          <p className='section-description'>
+            Every file follows a secure decentralized pipeline from encryption
+            to blockchain ownership verification.
+          </p>
+        </div>
+
+        <div className='architecture-grid'>
+          <div className='architecture-card'>
+            <Monitor className='architecture-icon' />
+
+            <h3 className='architecture-title'>Browser</h3>
+
+            <p className='architecture-description'>
+              User selects a file and provides an encryption password.
+            </p>
+          </div>
+
+          <ArrowRight className='architecture-arrow' />
+
+          <div className='architecture-card'>
+            <KeyRound className='architecture-icon' />
+
+            <h3 className='architecture-title'>AES Encryption</h3>
+
+            <p className='architecture-description'>
+              Files are encrypted locally before leaving the browser.
+            </p>
+          </div>
+
+          <ArrowRight className='architecture-arrow' />
+
+          <div className='architecture-card'>
+            <HardDrive className='architecture-icon' />
+
+            <h3 className='architecture-title'>IPFS Storage</h3>
+
+            <p className='architecture-description'>
+              The encrypted file is uploaded to IPFS through Pinata.
+            </p>
+          </div>
+
+          <ArrowRight className='architecture-arrow' />
+
+          <div className='architecture-card'>
+            <FileCode2 className='architecture-icon' />
+
+            <h3 className='architecture-title'>Smart Contract</h3>
+
+            <p className='architecture-description'>
+              Ownership and sharing permissions are stored on Ethereum Sepolia.
             </p>
           </div>
         </div>

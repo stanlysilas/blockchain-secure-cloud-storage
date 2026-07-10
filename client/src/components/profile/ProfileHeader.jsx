@@ -4,9 +4,6 @@ import { useWallet } from '@/context/WalletContext'
 function ProfileHeader () {
   const { account, walletName } = useWallet()
 
-  const shortenAddress = address =>
-    `${address.slice(0, 6)}...${address.slice(-4)}`
-
   return (
     <div className='dashboard-shell'>
       <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-6'>
@@ -26,7 +23,7 @@ function ProfileHeader () {
           </div>
         </div>
 
-        <div className='bg-green-500/10 border border-green-500/20 text-green-300 rounded-full px-4 py-2 text-sm font-medium'>
+        <div className='chip bg-green-500/10 hover:bg-green-200/10 border border-green-500/20 text-green-300 rounded-full px-4 py-2 text-sm font-medium'>
           Connected
         </div>
       </div>
