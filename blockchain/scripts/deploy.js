@@ -28,8 +28,8 @@ async function main () {
     JSON.stringify(artifact.abi, null, 2)
   )
 
-  console.log('✓ Updated config.js')
-  console.log('✓ Updated StorageABI.json')
+  console.log('✅ Updated config.js')
+  console.log('✅ Updated StorageABI.json')
 }
 
 main().catch(error => {

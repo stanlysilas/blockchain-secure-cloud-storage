@@ -267,6 +267,8 @@
   }
 
   .input-field {
+    display: block;
+
     @apply bg-gray-900 border border-gray-700 focus:border-blue-500 outline-none rounded-xl px-4 py-3 w-full transition-all duration-300;
   }
 
@@ -318,44 +320,235 @@
     @apply text-3xl font-black;
   }
 
+  .decrypt-dialog {
+    width: min(520px, 95vw);
+
+    background: rgba(17, 24, 39, 0.96);
+
+    backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    padding: 2rem;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .decrypt-icon {
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 1rem;
+  }
+
+  .decrypt-loading {
+    margin-top: 2rem;
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.75rem;
+  }
+
+  .decrypt-error {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    margin-top: 1rem;
+
+    padding: 0.9rem 1rem;
+
+    border-radius: 12px;
+
+    background: rgba(239, 68, 68, 0.12);
+
+    border: 1px solid rgba(239, 68, 68, 0.25);
+
+    color: rgb(248 113 113);
+  }
+
+  .dialog-overlay {
+    @apply fixed inset-0 z-100 flex items-center justify-center;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    backdrop-filter: blur(8px);
+
+    padding: 1rem;
+  }
+
+  .file-info-dialog {
+    width: min(650px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: rgba(17, 24, 39, 0.96);
+
+    backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    padding: 2rem;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .dialog-header {
+    @apply flex items-start justify-between;
+
+    margin-bottom: 2rem;
+  }
+
+  .dialog-title {
+    @apply text-2xl font-bold;
+  }
+
+  .dialog-subtitle {
+    @apply text-sm text-gray-400 mt-1;
+  }
+
+  .dialog-grid {
+    @apply grid md:grid-cols-2 gap-5;
+
+    margin-bottom: 2rem;
+  }
+
+  .dialog-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.35rem;
+  }
+
+  .dialog-label {
+    @apply text-xs uppercase tracking-wider text-gray-500;
+  }
+
+  .dialog-value {
+    @apply text-white font-medium;
+  }
+
+  .dialog-section {
+    margin-top: 2rem;
+  }
+
+  .dialog-section-title {
+    @apply flex items-center gap-2 text-lg font-semibold mb-4;
+  }
+
+  .dialog-copy-row {
+    @apply flex items-center gap-3;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+
+    border-radius: 12px;
+
+    padding: 0.75rem 1rem;
+  }
+
+  .dialog-copy-value {
+    flex: 1;
+
+    word-break: break-all;
+
+    font-family: monospace;
+
+    font-size: 0.9rem;
+  }
+
+  .dialog-footer {
+    margin-top: 2rem;
+  }
+
   .file-grid {
-    @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1.5rem;
+    justify-content: start;
   }
 
-  .file-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 hover:border-blue-500/30 transition-all duration-300;
+  .file-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
   }
 
-  .file-card-header {
-    @apply flex items-start justify-between gap-4 mb-6;
+  .file-item:hover {
+    background: rgba(255, 255, 255, 0.05);
   }
 
-  .file-icon-wrapper {
-    @apply bg-blue-500/10 border border-blue-500/20 p-3 rounded-2xl;
+  .file-menu {
+    @apply absolute z-50;
+
+    min-width: 220px;
+
+    background: rgba(17, 24, 39, 0.95);
+
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 14px;
+
+    padding: 0.5rem;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   }
 
-  .file-meta {
-    @apply space-y-3 text-sm;
+  .file-menu-bottom {
+    top: calc(100% + 0.5rem);
   }
 
-  .file-meta-label {
-    @apply text-gray-500 font-medium;
+  .file-menu-top {
+    bottom: calc(100% + 0.5rem);
   }
 
-  .file-meta-value {
-    @apply text-white break-all;
+  .file-menu-right {
+    right: 0;
   }
 
-  .file-action-group {
-    @apply flex flex-wrap gap-3 mt-6;
+  .file-menu-left {
+    left: 0;
   }
 
-  .success-button {
-    @apply bg-green-600 hover:bg-green-700 rounded-xl px-4 py-2 transition-all duration-300;
+  .file-menu-item {
+    @apply flex items-center gap-3 w-full;
+
+    padding: 0.75rem 1rem;
+
+    border-radius: 10px;
+
+    transition: 0.15s;
+
+    text-align: left;
   }
 
-  .share-button {
-    @apply bg-purple-600 hover:bg-purple-700 rounded-xl px-4 py-2 transition-all duration-300;
+  .file-menu-item:hover:not(:disabled) {
+    background: rgba(59, 130, 246, 0.15);
   }
 
   .empty-state {
@@ -414,6 +607,117 @@
     @apply mt-6 text-sm text-gray-500 text-center leading-relaxed;
   }
 
+  .preview-dialog {
+    width: min(1100px, 96vw);
+
+    height: min(90vh, 900px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: rgba(17, 24, 39, 0.96);
+
+    backdrop-filter: blur(24px);
+
+    border-radius: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    padding: 2rem;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .preview-container {
+    flex: 1;
+
+    margin: 1.5rem 0;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .preview-frame {
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    background: white;
+  }
+
+  .share-dialog {
+    width: min(600px, 100%);
+
+    background: rgba(17, 24, 39, 0.96);
+
+    backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    padding: 2rem;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .dialog-input-wrapper {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    margin-top: 0.75rem;
+
+    padding: 0.85rem 1rem;
+
+    border-radius: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .dialog-input {
+    flex: 1;
+
+    background: transparent;
+
+    outline: none;
+
+    color: white;
+  }
+
+  .dialog-input::placeholder {
+    color: rgb(156 163 175);
+  }
+
+  .dialog-hint {
+    margin-top: 1rem;
+
+    color: rgb(156 163 175);
+
+    line-height: 1.6;
+
+    font-size: 0.9rem;
+  }
+
+  .dialog-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
   .shared-layout {
     @apply min-h-[80vh] flex items-center justify-center;
   }
@@ -456,6 +760,90 @@
 
   .shared-download-button {
     @apply bg-green-600 hover:bg-green-700 rounded-2xl px-6 py-6 text-base font-semibold transition-all duration-300 w-full mt-6;
+  }
+
+  .upload-file-info {
+    @apply mt-6 rounded-2xl border border-blue-500/20 bg-blue-500/5 p-5;
+  }
+
+  .upload-file-name {
+    @apply text-lg font-semibold truncate mb-5;
+  }
+
+  .upload-file-grid {
+    @apply grid grid-cols-2 gap-5;
+  }
+
+  .upload-file-label {
+    @apply text-xs uppercase tracking-wide text-gray-400 mb-1;
+  }
+
+  .upload-progress {
+    @apply mt-5 rounded-xl border border-blue-500/20 bg-blue-500/5 p-4;
+  }
+
+  .upload-dropzone {
+    transition: 0.2s;
+  }
+
+  .upload-dropzone-active {
+    border-color: rgb(59 130 246);
+
+    background: rgba(59, 130, 246, 0.08);
+
+    transform: scale(1.01);
+  }
+
+  .upload-supported {
+    @apply mt-8 text-center;
+  }
+
+  .upload-supported-title {
+    @apply text-sm text-gray-400 mb-4;
+  }
+
+  .upload-supported-grid {
+    @apply flex flex-wrap justify-center gap-3;
+  }
+
+  .upload-success-dialog {
+    width: min(520px, 100%);
+
+    background: rgba(17, 24, 39, 0.96);
+
+    backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    padding: 2rem;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .success-icon {
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 1.5rem;
+  }
+
+  .success-checklist {
+    display: grid;
+
+    gap: 1rem;
+
+    margin: 2rem 0;
+
+    padding: 1.25rem;
+
+    border-radius: 14px;
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border: 1px solid rgba(34, 197, 94, 0.18);
   }
 
   .navbar-wrapper {

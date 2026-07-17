@@ -49,7 +49,7 @@ function SecurityCard () {
 
   return (
     <div className='dashboard-stat-card'>
-      <h2 className='text-2xl font-bold mb-6'>Security</h2>
+      <h2 className='text-2xl font-bold mb-6'>Platform Information</h2>
 
       <div className='space-y-5'>
         {items.map(item => (

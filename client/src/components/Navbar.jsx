@@ -24,6 +24,8 @@ function Navbar () {
 
   const [drawerOpen, setDrawerOpen] = useState(false)
 
+  const { isConnected, connectWallet } = useWallet()
+
   useEffect(() => {
     if (drawerOpen) {
       document.body.style.overflow = 'hidden'
@@ -77,12 +79,14 @@ function Navbar () {
 
             <div className='navbar-right'>
               <div className='navbar-links'>
-                <NavLink to='/' className={navStyle}>
-                  <div className='flex items-center gap-2'>
-                    <Home className='w-4 h-4' />
-                    Home
-                  </div>
-                </NavLink>
+                {isConnected ? null : (
+                  <NavLink to='/' className={navStyle}>
+                    <div className='flex items-center gap-2'>
+                      <Home className='w-4 h-4' />
+                      Home
+                    </div>
+                  </NavLink>
+                )}
 
                 <NavLink to='/dashboard' className={navStyle}>
                   <div className='flex items-center gap-2'>

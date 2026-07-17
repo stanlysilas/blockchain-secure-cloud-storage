@@ -16,10 +16,18 @@ import { useNavigate } from 'react-router-dom'
 
 import { useWallet } from '../context/WalletContext'
 
+import { useEffect } from 'react'
+
 function Home () {
   const navigate = useNavigate()
 
   const { isConnected, connectWallet } = useWallet()
+
+  useEffect(() => {
+    if (isConnected) {
+      navigate('/dashboard')
+    }
+  }, [isConnected, navigate])
 
   const handlePrimaryAction = async () => {
     if (isConnected) {

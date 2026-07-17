@@ -27,7 +27,7 @@ function QuickActions () {
 
         <Button variant='glass' onClick={() => navigate('/shared')}>
           <Share2 className='w-4 h-4 mr-2' />
-          Shared Files
+          Sharing Center
         </Button>
       </div>
     </div>

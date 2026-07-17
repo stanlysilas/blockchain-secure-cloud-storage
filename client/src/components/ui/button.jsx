@@ -22,7 +22,7 @@ const buttonVariants = cva(
 
         blue: 'bg-blue-600 text-white hover:bg-blue-700 px-6 py-6 rounded-xl',
 
-        success: 'bg-green-600 text-white hover:bg-green-700 px-6 py-6',
+        success: 'bg-green-600 text-white hover:bg-green-700',
 
         purple: 'bg-purple-600 text-white hover:bg-purple-700 px-6 py-6',
 

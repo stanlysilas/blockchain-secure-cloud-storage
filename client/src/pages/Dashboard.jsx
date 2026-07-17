@@ -1,32 +1,26 @@
 import { useEffect, useState } from 'react'
 
-import { ShieldCheck } from 'lucide-react'
+import { ShieldCheck, Search } from 'lucide-react'
 
 import { getContract } from '../services/contractService'
 
-import FileCard
-from '@/components/FileCard'
+import FileItem from '@/components/FileItem'
 
 function Dashboard () {
   const [files, setFiles] = useState([])
 
+  const [search, setSearch] = useState('')
+
   const [loading, setLoading] = useState(true)
 
   const shareFile = async (fileId, address) => {
-    try {
-      const contract = await getContract()
+    const contract = await getContract()
 
-      const transaction = await contract.shareAccess(fileId, address)
+    const tx = await contract.shareAccess(fileId, address)
 
-      await transaction.wait()
+    await tx.wait()
 
-      alert('Access shared successfully')
-
-    } catch (error) {
-      console.error(error)
-
-      alert(error.reason || error.shortMessage || 'Failed to share access.')
-    }
+    await fetchFiles()
   }
 
   const fetchFiles = async () => {
@@ -35,7 +29,23 @@ function Dashboard () {
 
       const data = await contract.getMyFiles()
 
-      setFiles(data)
+      const filesWithUsers = await Promise.all(
+        data.map(async file => {
+          const users = await contract.getSharedUsers(file.id)
+
+          return {
+            id: file.id,
+            fileName: file.fileName,
+            ipfsHash: file.ipfsHash,
+            owner: file.owner,
+            timestamp: file.timestamp,
+            deleted: file.deleted,
+            users
+          }
+        })
+      )
+
+      setFiles(filesWithUsers)
     } catch (error) {
       console.error(error)
     } finally {
@@ -46,6 +56,42 @@ function Dashboard () {
   useEffect(() => {
     fetchFiles()
   }, [])
+
+  const filteredFiles = files.filter(file => {
+    const query = search.toLowerCase()
+
+    return (
+      file.fileName.toLowerCase().includes(query) ||
+      file.owner.toLowerCase().includes(query) ||
+      file.id.toString().includes(query)
+    )
+  })
+
+  const deleteFile = async fileId => {
+    if (!confirm('Delete this file?')) return
+
+    const contract = await getContract()
+
+    const tx = await contract.deleteFile(fileId)
+
+    await tx.wait()
+
+    await fetchFiles()
+
+    alert('File deleted successfully.')
+  }
+
+  const revokeAccess = async (fileId, address) => {
+    const contract = await getContract()
+
+    const tx = await contract.revokeAccess(fileId, address)
+
+    await tx.wait()
+
+    await fetchFiles()
+
+    return true
+  }
 
   if (loading) {
     return (
@@ -99,11 +145,13 @@ function Dashboard () {
               </div>
 
               <div className='file-grid mt-10'>
-                {files.map(file => (
-                  <FileCard
+                {filteredFiles.map(file => (
+                  <FileItem
                     key={file.id.toString()}
                     file={file}
                     shareFile={shareFile}
+                    deleteFile={deleteFile}
+                    revokeAccess={revokeAccess}
                   />
                 ))}
               </div>
@@ -123,15 +171,29 @@ function Dashboard () {
           <p className='dashboard-subtitle'>
             Manage encrypted decentralized files stored on blockchain and IPFS.
           </p>
+
+          <div className='relative mt-6 max-w-xl'>
+            <Search className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400' />
+
+            <input
+              type='text'
+              placeholder='Search files...'
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className='input-field pl-12'
+            />
+          </div>
         </div>
       </div>
 
       <div className='file-grid'>
-        {files.map(file => (
-          <FileCard
+        {filteredFiles.map(file => (
+          <FileItem
             key={file.id.toString()}
             file={file}
             shareFile={shareFile}
+            deleteFile={deleteFile}
+            revokeAccess={revokeAccess}
           />
         ))}
       </div>

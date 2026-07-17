@@ -1,52 +1,52 @@
 import { decryptFile } from './encryptionService'
 
-export const downloadAndDecryptFile = async (ipfsHash, fileName) => {
+export const decryptFileFromIPFS = async (ipfsHash, password) => {
+  const response = await fetch(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`)
+
+  const encryptedBlob = await response.blob()
+
+  const encryptedText = await encryptedBlob.text()
+
+  let decryptedBlob
+
   try {
-    const password = prompt('Enter encryption password')
+    const decryptedData = decryptFile(encryptedText, password)
 
-    if (!password) return
+    const blobResponse = await fetch(decryptedData)
 
-    const response = await fetch(
-      `https://gateway.pinata.cloud/ipfs/${ipfsHash}`
-    )
-
-    const encryptedBlob = await response.blob()
-
-    const encryptedText = await encryptedBlob.text()
-
-    let decryptedBlob
-
-    try {
-      const decryptedData = decryptFile(encryptedText, password)
-      const response = await fetch(decryptedData)
-
-      decryptedBlob = await response.blob()
-    } catch {
-      alert('Incorrect encryption password')
-
-      return
-    }
-
-    if (!decryptedBlob || decryptedBlob.size === 0) {
-      alert('Incorrect encryption password')
-
-      return
-    }
-
-    const url = window.URL.createObjectURL(decryptedBlob)
-
-    const a = document.createElement('a')
-
-    a.href = url
-
-    a.download = fileName
-
-    a.click()
-
-    window.URL.revokeObjectURL(url)
-  } catch (error) {
-    console.error(error)
-
-    alert('Failed to decrypt or download file')
+    decryptedBlob = await blobResponse.blob()
+  } catch {
+    throw new Error('Incorrect encryption password')
   }
+
+  if (!decryptedBlob || decryptedBlob.size === 0) {
+    throw new Error('Failed to decrypt file')
+  }
+
+  return {
+    blob: decryptedBlob,
+    url: URL.createObjectURL(decryptedBlob)
+  }
+}
+
+export const downloadBlob = (blobUrl, fileName) => {
+  const a = document.createElement('a')
+
+  a.href = blobUrl
+
+  a.download = fileName
+
+  a.click()
+
+  URL.revokeObjectURL(blobUrl)
+}
+
+export const downloadAndDecryptFile = async (ipfsHash, fileName, password) => {
+  const result = await decryptFileFromIPFS(ipfsHash, password)
+
+  downloadBlob(result.url, fileName)
+}
+
+export const previewAndDecryptFile = async (ipfsHash, password) => {
+  return await decryptFileFromIPFS(ipfsHash, password)
 }
