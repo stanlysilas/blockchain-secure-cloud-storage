@@ -187,7 +187,7 @@ function SharedFiles () {
           <div className='mb-8'>
             <div className='flex items-center gap-3'>
               <Users className='w-7 h-7 text-blue-400' />
-              <h2 className='text-3xl font-bold'>Shared With Me</h2>
+              <h2 className='text-3xl font-bold'>Shared By Me</h2>
             </div>
 
             <input
