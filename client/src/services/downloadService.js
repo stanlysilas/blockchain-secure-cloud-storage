@@ -1,7 +1,7 @@
 import { decryptFile } from './encryptionService'
 
 export const decryptFileFromIPFS = async (ipfsHash, password) => {
-  const response = await fetch(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`)
+  const response = await fetch(`https://red-secondary-canidae-793.mypinata.cloud/ipfs/${ipfsHash}`)
 
   const encryptedBlob = await response.blob()
 
